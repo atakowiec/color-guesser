@@ -24,14 +24,6 @@ export default function Game(props) {
 
         const indexes = [0,1,2,3,4,5];
         const sameChars = {"easy": 6, "medium":4, "hard":3, "impossible":2}[props.gameMode];
-        // const chars = {};
-
-        // for(let i=0; i<sameChars; i++) {
-        //     const randomIndex = Math.floor(Math.random()*indexes.length)
-        //     const index = indexes[randomIndex];
-        //     indexes.splice(randomIndex, 1);
-        //     chars[index] = randomColor[index];
-        // }
 
         const res = {
             "answer_1": randomColor,
@@ -56,22 +48,6 @@ export default function Game(props) {
             }
         }
 
-        // for(let i=0; i<6; i++) {
-        //     for(let property of ["answer_1", "answer_2", "answer_3"]) {
-        //         let char;
-        //         if(indexes.includes(i)) {
-        //             char = Math.floor(Math.random() * 16).toString(16);
-        //             while(randomColor[i] === char) {
-        //                 char = Math.floor(Math.random() * 16).toString(16);
-        //             }
-        //         } else {
-        //             char = chars[i];
-        //         }
-        //         res[property] += char;
-        //     }
-        // }
-
-
         setGameData(res);
         elementsMap.current = ["answer_1", "answer_2", "answer_3", "correct"].sort(() => 0.5 - Math.random());
     }
@@ -80,6 +56,7 @@ export default function Game(props) {
         props.setLogoScale(0.9);
         generateNewColor();
         return () => props.setLogoScale(1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props])
 
     function handleAnswerClick(answer, e) {
@@ -97,11 +74,15 @@ export default function Game(props) {
             confettiShouldAppear.current = false;
         }
 
+        const element = document.getElementsByClassName("correct")[0];
+        element.classList.add("correct-button");
+
         setGameData(prev => ({...prev}));
 
         setTimeout(() => {
             generateNewColor();
             e.target.classList.remove("correct-button", "incorrect-button");
+            element.classList.remove("correct-button");
         }, 1000);
 
         localStorage.setItem(props.gameMode + "-streak", streak.current.toString());
@@ -109,13 +90,13 @@ export default function Game(props) {
 
     return (
     <div className="page-content">
-        {streak.current !== 0 && confettiShouldAppear.current && <Confetti key={streak.current} recycle={false} />}
+        {streak.current !== 0 && confettiShouldAppear.current && <Confetti key={streak.current} initialVelocityY={7} recycle={false} />}
         <div className="streak-box">
             <img src={streakIcon} className="streak-icon" alt="streak icon" />
             <span className="streak-count">{streak.current}</span>
         </div>
         <div className="color-box" style={{backgroundColor: "#"+gameData["correct"]}}></div>
-        {elementsMap.current.map(e => <button key={gameData[e]} onClick={(event) => handleAnswerClick(gameData[e], event)} className="answer col-10">#{gameData[e]}</button>)}
+        {elementsMap.current.map(e => <button key={gameData[e]} onClick={(event) => handleAnswerClick(gameData[e], event)} className={`answer col-10 ${e}`}>#{gameData[e]}</button>)}
     </div>
     );
 }

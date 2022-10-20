@@ -35,7 +35,7 @@ button {
     padding: 12px 20px;
     font-size: 24px !important;
     border-radius: 16px !important;
-    transition: background-color ease-in-out 0.1s, box-shadow ease-in-out 0.1s;
+    transition: background-color ease-in-out 0.2s, box-shadow ease-in-out 0.1s;
     margin-bottom: 16px !important;
 }
 button:hover,
