@@ -1,0 +1,78 @@
+.box {
+    height: 100vh;
+}
+canvas {
+    position: fixed !important;
+    width: 100vw;
+    height: 100vh;
+}
+.logo-box {
+    transition: scale .2s ease-in-out, transform .2s ease-in-out;
+}
+.logo-box:hover {
+    scale: 1.1;
+}
+.logo {
+    width: 80px;
+}
+.logo-text {
+    color: #333;
+    transition: color 0.2s ease-in-out;
+}
+.content-box {
+    border-radius: 28px;
+    height: fit-content;
+    position: relative;
+    transition: background-color 0.2s ease-in-out, all .2s ease-in-out;
+}
+.page-content {
+    text-align: center;
+    margin-top: 50px;
+}
+button {
+    font-weight: lighter;
+    border: none;
+    padding: 12px 20px;
+    font-size: 24px !important;
+    border-radius: 16px !important;
+    transition: background-color ease-in-out 0.1s, box-shadow ease-in-out 0.1s;
+    margin-bottom: 16px !important;
+}
+button:hover,
+button:focus {
+}
+.color-box {
+    width: 150px;
+    height: 150px;
+    margin: -30px auto 50px;
+    border-radius: 20px;
+    transition: background-color ease-in-out .2s, scale ease-in-out .2s;
+}
+.color-box:hover {
+    scale: 1.2;
+}
+.streak-box {
+    /*background-color: #d9d9d9;*/
+    position: absolute;
+    top: 15px;
+    border-radius: 20px;
+    left: 15px;
+    width: 60px;
+    padding: 7px;
+}
+.streak-icon {
+    width: 100%;
+}
+.streak-count {
+    font-size: 30px;
+    line-height: 1;
+}
+.theme-switch {
+    transition: none !important;
+    top: 10px;
+    right: 10px;
+    box-sizing: content-box;
+    border-radius: 55px;
+    position: absolute;
+    padding: 10px;
+}

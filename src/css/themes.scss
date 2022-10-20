@@ -1,0 +1,87 @@
+.dark-theme {
+  .logo-text {
+    color: #c9c9c9;
+  }
+
+  .content-box {
+    background-color: #333333;
+    box-shadow: 0 0 25px 0 rgb(38, 38, 38);
+  }
+
+  button {
+    background-color: #4d4d4d;
+    color: #eee;
+    box-shadow: 0 0 5px 0 rgb(26, 26, 26);
+  }
+
+  button:hover,
+  button:focus {
+    background: #575757;
+  }
+
+  .color-box {
+    border: 5px solid #676767;
+  }
+
+  .streak-count {
+    color: #c9c9c9;
+  }
+  .correct-button {
+    box-shadow: 0 0 15px 0 rgb(3, 141, 0) !important;
+  }
+  .incorrect-button {
+    box-shadow: 0 0 15px 0 rgb(141, 0, 0) !important;
+  }
+}
+
+.light-theme {
+  .logo-text {
+    color: #333;
+  }
+
+  .content-box {
+    background-color: #efefef;
+    box-shadow: 0 0 25px 0 rgb(215, 215, 215);
+  }
+
+  .correct-button {
+    box-shadow: 0 0 15px 0 rgb(3, 255, 0) !important;
+    background-color: rgb(3, 255, 0) !important;
+  }
+  .incorrect-button {
+    box-shadow: 0 0 15px 0 rgb(255, 78, 78) !important;
+    background-color: rgb(255, 78, 78) !important;
+  }
+
+  button {
+    background: #fff;
+    box-shadow: 0 0 15px 0 rgb(224, 224, 224);
+  }
+
+  button:hover,
+  button:focus {
+    background: #C8C8C8;
+  }
+
+  .color-box {
+    border: 5px solid #d9d9d9;
+  }
+}
+
+.box:after {
+  content: "";
+  position: absolute;
+  top:0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  background-color:black;
+  background-image:url("../images/congruent_outline.png");
+  z-index: -1;
+  transition: filter ease-in-out .2s;
+}
+
+.light-theme.box:after {
+  filter: invert(100%) brightness(115%);
+  -webkit-filter: invert(100%) brightness(115%);
+}
