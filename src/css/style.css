@@ -35,11 +35,30 @@ button {
     padding: 12px 20px;
     font-size: 24px !important;
     border-radius: 16px !important;
-    transition: background-color ease-in-out 0.2s, box-shadow ease-in-out 0.1s;
+    transition: background-color ease-in-out 0.2s, box-shadow ease-in-out 0.1s, scale ease-in-out 0.1s;
     margin-bottom: 16px !important;
+    letter-spacing: 1px;
 }
-button:hover,
+button:hover {
+    scale: 1.05;
+}
 button:focus {
+    scale: 1.05;
+}
+.button-click {
+    animation-name: buttonClick;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+}
+@keyframes buttonClick {
+    50% {
+        scale: 1.2;
+    }
+    100% {
+        scale: 1.05;
+    }
 }
 .color-box {
     width: 150px;

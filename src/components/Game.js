@@ -6,14 +6,14 @@ import React from "react";
 export default function Game(props) {
     const [gameData, setGameData] = useState({});
     const elementsMap = useRef([]);
+    const confettiCounter = useRef(0);
+    const correctElement = useRef();
     const answerGiven = useRef(false);
-    const confettiShouldAppear = useRef(true);
     const streak = useRef(parseInt(localStorage.getItem(props.gameMode + "-streak")));
 
 
     useEffect(() => {
         document.title = "ColorGuesser - "+ props.gameMode.charAt(0).toUpperCase() + props.gameMode.slice(1) + " Mode";
-        confettiShouldAppear.current = false;
         return () => {document.title = "ColorGuesser - Menu"};
     }, [props.gameMode])
 
@@ -64,39 +64,43 @@ export default function Game(props) {
             return;
         answerGiven.current = !answerGiven.current;
 
+        e.target.classList.add("button-click");
+
         if(answer === gameData["correct"]) {
             streak.current = streak.current + 1;
             e.target.classList.add("correct-button");
-            confettiShouldAppear.current = true;
+            confettiCounter.current++;
         } else {
             streak.current = 0;
             e.target.classList.add("incorrect-button");
-            confettiShouldAppear.current = false;
         }
 
-        const element = document.getElementsByClassName("correct")[0];
-        element.classList.add("correct-button");
+        correctElement.current.classList.add("correct-button");
 
         setGameData(prev => ({...prev}));
 
         setTimeout(() => {
             generateNewColor();
-            e.target.classList.remove("correct-button", "incorrect-button");
-            element.classList.remove("correct-button");
-        }, 1000);
+            e.target.classList.remove("correct-button", "incorrect-button", "button-click");
+            correctElement.current.classList.remove("correct-button");
+        }, 2000);
 
         localStorage.setItem(props.gameMode + "-streak", streak.current.toString());
     }
 
     return (
     <div className="page-content">
-        {streak.current !== 0 && confettiShouldAppear.current && <Confetti key={streak.current} initialVelocityY={7} recycle={false} />}
+        {<Confetti numberOfPieces={150*confettiCounter.current} initialVelocityY={7} recycle={false} />}
         <div className="streak-box">
             <img src={streakIcon} className="streak-icon" alt="streak icon" />
             <span className="streak-count">{streak.current}</span>
         </div>
         <div className="color-box" style={{backgroundColor: "#"+gameData["correct"]}}></div>
-        {elementsMap.current.map(e => <button key={gameData[e]} onClick={(event) => handleAnswerClick(gameData[e], event)} className={`answer col-10 ${e}`}>#{gameData[e]}</button>)}
+        {elementsMap.current.map(e => <button key={gameData[e]}
+                                              ref={e==="correct" ? correctElement : null}
+                                              onClick={(event) => handleAnswerClick(gameData[e], event)}
+                                              className={`answer col-10`}
+        >#{gameData[e]}</button>)}
     </div>
     );
 }
